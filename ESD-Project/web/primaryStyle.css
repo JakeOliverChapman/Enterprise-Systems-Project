@@ -78,6 +78,7 @@ input {
     background-color: #ffffff;
     text-decoration: none;
     border-radius: 0.5vw;
+    cursor: pointer;
     height: 5%;
     width: 35%;
     border: none;
