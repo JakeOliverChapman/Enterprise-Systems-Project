@@ -31,7 +31,6 @@ body {
     color: #909090;
 }
 
-
 input {
     margin: 1vw;
     padding: 0.5vw;
@@ -68,21 +67,21 @@ input {
     outline: none;
 }
 
+.buttonDiv {
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .submitButton {
     color: #000000;
     font-size: 1vw;
-    margin-right: 0.5vw;
-    margin-left: 0.5vw;
-    display: inline-block;
-    vertical-align: middle;
     text-align: center;
     background-color: #ffffff;
     text-decoration: none;
     border-radius: 0.5vw;
     cursor: pointer;
-    height: 5%;
-    width: 35%;
     border: none;
+    padding: 1vw;
 }
 
 .submitButton:hover {
