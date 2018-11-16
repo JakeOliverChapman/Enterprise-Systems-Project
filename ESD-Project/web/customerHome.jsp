@@ -46,11 +46,30 @@
                 sessionID = session.getId();
             }
         %>
-        <div class="subHeader">
-            Welcome Customer <%=userName%>! Login successful, Your Session ID=<%=sessionID%>
+        <div class="container">
+            <div class="subHeader">
+                Welcome Customer <%=userName%>! <br>
+                Login successful, Your Session ID=<%=sessionID%> <br><br>
+
+                Book a taxi:
+            </div>
+
+            <br>
+            <form class="formCenter" role="form" action="GoogleMapsServlet" method="post">
+                <input type="text" class="textField" name ="origins" placeholder="Pick up location">
+                <br>
+                <input type="text" class="textField" name ="destinations" placeholder="Destination">
+                <br><br>
+                <div class="buttonDiv">
+                    <button type="submit" class="submitButton"> Get Quote </button>
+                </div>
+            </form>
+
+            <br>
             <form action="LogoutServlet" method="post">
                 <input type="submit" value="Logout" >
             </form>
+
         </div>
     </body>
 </html>
