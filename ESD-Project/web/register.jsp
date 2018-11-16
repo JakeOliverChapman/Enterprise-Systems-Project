@@ -18,7 +18,7 @@
                 <br>
                 <input type="password" class="textField" name ="pw" placeholder="Password">
                 <br>
-                <input type="text" class="textField" name="pw1" placeholder="Confirm password">
+                <input type="password" class="textField" name="pw1" placeholder="Confirm password">
                 <br>
                 <input  type="text" class="textField dateField" name="date" placeholder="Date of birth" onfocusin="(this.type='date')" onfocusout="(this.type='text')">
                 <br><br>
