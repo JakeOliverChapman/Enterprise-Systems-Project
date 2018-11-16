@@ -5,73 +5,86 @@ package obj;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author jonasarud
  */
 public class UserBean {
-	
-      private  String email;
-      private  String password;
-      private static String firstName;
-      private static String lastName;
-      private String dob;
-      public boolean valid;
-      
-	
-	
-      public static String getFirstName() {
-         return firstName;
-	}
 
-      public void setFirstName(String newFirstName) {
-         firstName = newFirstName;
-	}
+    private String email;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String dob;
+    private String type;
+    private String ID;
 
-	
-      public static String getLastName() {
-         return lastName;
-	}
+    public String getID() {
+        return ID;
+    }
 
-      public void setLastName(String newLastName) {
-         lastName = newLastName;
-	}
-			
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+    public boolean valid;
 
-      public String getPassword() {
-         return password;
-	}
+    public String getType() {
+        return type;
+    }
 
-      public void setPassword(String newPassword) {
-         password = newPassword;
-	}
-	
-			
-      public String getEmail() {
-         return email;
-			}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-      public void setEmail(String newEmail) {
-         email = newEmail;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-      public String getDob(){
-          return dob;
-      }
-			
-      public void setDob(String newDob){
-          dob = newDob;
-      }
-      
-      public boolean isValid() {
-         return valid;
-	}
+    public void setFirstName(String newFirstName) {
+        firstName = newFirstName;
+    }
 
-      public void setValid(boolean newValid) {
-         valid = newValid;
-	}	
-      public void isLoggedOut(){
-          valid = false;
-      }
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String newLastName) {
+        lastName = newLastName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String newPassword) {
+        password = newPassword;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String newEmail) {
+        email = newEmail;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String newDob) {
+        dob = newDob;
+    }
+
+    public boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(boolean newValid) {
+        valid = newValid;
+    }
+
+    public void isLoggedOut() {
+        valid = false;
+    }
 }
