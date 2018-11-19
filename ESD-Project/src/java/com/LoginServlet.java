@@ -34,20 +34,21 @@ public class LoginServlet extends HttpServlet {
                 response.addCookie(userName);
                 response.addCookie(userType);
                 response.addCookie(userID);
-         
-                
-                if (null != user.getType()) switch (user.getType()) { // Redirect to user home
-                    case "Driver":
-                        response.sendRedirect("driverHome.jsp");
-                        break;
-                    case "Customer":
-                        response.sendRedirect("customerHome.jsp");
-                        break;
-                    case "HeadOffice":
-                        response.sendRedirect("headOfficeHome.jsp");
-                        break;
-                    default:
-                        break;
+
+                if (null != user.getType()) {
+                    switch (user.getType()) { // Redirect to user home
+                        case "Driver":
+                            response.sendRedirect("driverHome.jsp");
+                            break;
+                        case "Customer":
+                            response.sendRedirect("customerHome.jsp");
+                            break;
+                        case "HeadOffice":
+                            response.sendRedirect("headOfficeHome.jsp");
+                            break;
+                        default:
+                            break;
+                    }
                 }
             } else {
                 response.sendRedirect("invalidLogin.jsp"); //error page 

@@ -1,8 +1,3 @@
-<%-- 
-    Document   : driverHome
-    Created on : 15-Nov-2018, 20:44:11
-    Author     : Will
---%>
 <%@ page language="java" 
          contentType="text/html; charset=windows-1256"
          pageEncoding="windows-1256"
@@ -49,7 +44,7 @@
         <div class="subHeader">
             Welcome Driver <%=userName%>! Login successful, Your Session ID=<%=sessionID%>
             <form action="LogoutServlet" method="post">
-                <input type="submit" value="Logout" >
+                <input type="submit" value="Logout" class="submitButton">
             </form>
         </div>
     </body>

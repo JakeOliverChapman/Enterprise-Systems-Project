@@ -1,8 +1,3 @@
-<%-- 
-    Document   : customerHome
-    Created on : 15-Nov-2018, 20:52:47
-    Author     : Will
---%>
 <%@ page language="java" 
          contentType="text/html; charset=windows-1256"
          pageEncoding="windows-1256"
@@ -48,12 +43,13 @@
         %>
         <div class="container">
             <div class="subHeader">
+                <br><br>
                 Welcome Customer <%=userName%>! <br>
-                Login successful, Your Session ID=<%=sessionID%> <br><br>
-
+                Login successful, Your Session ID = <%=sessionID%> <br><br>
+            </div>
+            <div class="mainHeader">
                 Book a taxi:
             </div>
-
             <br>
             <form class="formCenter" role="form" action="GoogleMapsServlet" method="post">
                 <input type="text" class="textField" name ="origins" placeholder="Pick up location">
@@ -64,12 +60,9 @@
                     <button type="submit" class="submitButton"> Get Quote </button>
                 </div>
             </form>
-
-            <br>
-            <form action="LogoutServlet" method="post">
-                <input type="submit" value="Logout" >
+            <form class="formCenter" action="LogoutServlet" method="post">
+                <input type="submit" value="Logout" class="submitButton">
             </form>
-
         </div>
     </body>
 </html>
