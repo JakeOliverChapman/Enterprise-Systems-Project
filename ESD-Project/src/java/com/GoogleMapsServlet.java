@@ -97,7 +97,7 @@ public class GoogleMapsServlet extends HttpServlet {
               ps.setInt(1, driverId);
               ps.setString(2, pickupTime);
               ps.setString(3, pickupTime);
-              ps.setInt(4, UserBean.getID());
+              ps.setString(4, UserBean.getID());
               ps.setString(5, ref);
               ps.setDouble(6, miles);
               ps.setDouble(7, miles * 2);
