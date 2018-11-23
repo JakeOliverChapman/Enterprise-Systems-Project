@@ -1,0 +1,109 @@
+body {
+    background-color: #252228;
+    color: #ffffff;
+    font-family: Sans-serif, serif, Times;
+    font-size: 1vw;
+}
+
+.container {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    text-align: center;
+
+}
+
+.mainHeader {
+    color: #ffda00;
+    font-size: 3vw;
+}
+
+.subHeader {
+    font-size: 2vw;
+}
+
+.formCenter {
+    width: 25%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+::placeholder {
+    color: #909090;
+}
+
+input {
+    margin: 1vw;
+    padding: 0.5vw;
+}
+
+.textField {
+    width: 85%;
+    border-color: #ffffff;
+    border-style: solid;
+    border-width: 0px 0px 2px 0px;
+    background-color: #252228;
+    color: #ffffff;
+    font-size: 1vw;
+}
+
+.dateField {
+    background:#252228 url("Images/dateIcon.png") 95% 50% no-repeat;
+}
+
+.dateField::-webkit-clear-button {
+    display: none;
+    -webkit-appearance: none;
+}
+
+.dateField::-webkit-calendar-picker-indicator {
+    opacity: 0;
+}
+
+.dateField::-webkit-inner-spin-button {
+    display: none;
+}
+
+.textField:focus {
+    outline: none;
+}
+
+.buttonDiv {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.submitButton {
+    color: #000000;
+    font-size: 1vw;
+    text-align: center;
+    background-color: #ffffff;
+    text-decoration: none;
+    border-radius: 0.5vw;
+    cursor: pointer;
+    border: none;
+    padding: 1vw;
+}
+
+.submitButton:hover {
+    background-color: #ffda00;
+}
+
+.submitButton:focus {
+    outline: 0;
+}
+
+.customLink {
+    text-decoration: none;
+}
+
+.customLink:link {
+    color: #ffda00;
+}
+
+.customLink:visited {
+    color: #ffda00;
+}
+
+.customLink:hover {
+    color: #ffffff;
+}
