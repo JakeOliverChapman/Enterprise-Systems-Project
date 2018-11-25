@@ -17,9 +17,9 @@ public class UserBean {
     private String lastName;
     private String dob;
     private String type;
-    private String ID;
+    static String ID;
 
-    public String getID() {
+    public static String getID() {
         return ID;
     }
 
