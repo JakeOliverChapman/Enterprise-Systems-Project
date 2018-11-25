@@ -14,10 +14,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import static java.lang.Integer.parseInt;
@@ -84,34 +80,35 @@ public class GoogleMapsServlet extends HttpServlet {
         String pickupTime = request.getParameter("pickupTime");
         
         try {
-                    String query = "insert into PASS.BOOKING_TABLE (DRIVERID,STARTTIME,ENDTIME,CUSTOMERID, BOOKINGREFERENCE,DISTANCEINMILES, PAYMENTAMOUNT, PAYMENTTIME, JOBCOMPLETED) values (?,?,?,?,?,?,?,?,?)";
+                String query = "insert into PASS.BOOKING_TABLE (DRIVERID,STARTTIME,ENDTIME,CUSTOMERID, BOOKINGREFERENCE,DISTANCEINMILES, PAYMENTAMOUNT, PAYMENTTIME, JOBCOMPLETED) values (?,?,?,?,?,?,?,?,?)";
 
-                  currentCon = ConnectionManager.getConnection();
-                   stmt=currentCon.createStatement();
+                currentCon = ConnectionManager.getConnection();
+                stmt=currentCon.createStatement();
 
+                UserBean currentUser = new UserBean();
+                   
+                PreparedStatement ps = currentCon.prepareStatement(query); // generates sql query
+                int driverId = 1;
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                String ref = Long.toHexString(Double.doubleToLongBits(Math.random()));
+                ps.setInt(1, driverId);
+                ps.setString(2, pickupTime);
+                ps.setString(3, pickupTime);
+                ps.setString(4, currentUser.getID());
+                ps.setString(5, ref);
+                ps.setDouble(6, miles);
+                ps.setDouble(7, miles * 2);
+                ps.setTimestamp(8, timestamp);
+                ps.setBoolean(9, false);
 
-              PreparedStatement ps = currentCon.prepareStatement(query); // generates sql query
-              int driverId = 1;
-              Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-              String ref = Long.toHexString(Double.doubleToLongBits(Math.random()));
-              ps.setInt(1, driverId);
-              ps.setString(2, pickupTime);
-              ps.setString(3, pickupTime);
-              ps.setString(4, UserBean.getID());
-              ps.setString(5, ref);
-              ps.setDouble(6, miles);
-              ps.setDouble(7, miles * 2);
-              ps.setTimestamp(8, timestamp);
-              ps.setBoolean(9, false);
-
-              ps.executeUpdate(); // execute it on test database
-              System.out.println("successfuly inserted");
-              ps.close();
-              currentCon.close();
-             } catch (SQLException e) {
-              // TODO Auto-generated catch block
-              e.printStackTrace();
-             }     
+                ps.executeUpdate(); // execute it on test database
+                System.out.println("successfuly inserted job to database");
+                ps.close();
+                currentCon.close();
+               } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+               }     
             
     }
 
