@@ -76,7 +76,6 @@ public class GoogleMapsServlet extends HttpServlet {
         int miles = (int) Math.round(km * 0.62137);
         System.out.println(miles);
         Statement stmt = null;    
-        
         String pickupTime = request.getParameter("pickupTime");
         
         try {
@@ -105,6 +104,7 @@ public class GoogleMapsServlet extends HttpServlet {
                 System.out.println("successfuly inserted job to database");
                 ps.close();
                 currentCon.close();
+                response.sendRedirect("taxiBooked.jsp");
                } catch (SQLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
