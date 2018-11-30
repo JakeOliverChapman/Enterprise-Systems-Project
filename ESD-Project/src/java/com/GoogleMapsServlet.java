@@ -37,10 +37,10 @@ public class GoogleMapsServlet extends HttpServlet {
 
     private static String api = "AIzaSyC30fCnCqt0kI4tdOqRMm4mg0kW5oe1tGo";
     static Connection currentCon = null;
-    static ResultSet rs = null; 
+    static ResultSet rs = null;
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
-    
-    
+
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String ori = request.getParameter("origins");
@@ -63,9 +63,9 @@ public class GoogleMapsServlet extends HttpServlet {
         }
         in.close();
         con.disconnect();
-        
+
         JsonObject jsonObject = new JsonParser().parse(content.toString()).getAsJsonObject();
-        
+
         String dest = jsonObject.get("destination_addresses").getAsString();
         String origin = jsonObject.get("origin_addresses").getAsString();
         String time = jsonObject.getAsJsonArray("rows").get(0).getAsJsonObject().get("elements").getAsJsonArray().get(0).getAsJsonObject().get("duration").getAsJsonObject().get("text").getAsString();
@@ -75,9 +75,9 @@ public class GoogleMapsServlet extends HttpServlet {
         System.out.println(km);
         int miles = (int) Math.round(km * 0.62137);
         System.out.println(miles);
-        Statement stmt = null;    
+        Statement stmt = null;
         String pickupTime = request.getParameter("pickupTime");
-        
+
         try {
                 String query = "insert into PASS.BOOKING_TABLE (DRIVERID,STARTTIME,ENDTIME,CUSTOMERID, BOOKINGREFERENCE,DISTANCEINMILES, PAYMENTAMOUNT, PAYMENTTIME, JOBCOMPLETED) values (?,?,?,?,?,?,?,?,?)";
 
@@ -85,7 +85,7 @@ public class GoogleMapsServlet extends HttpServlet {
                 stmt=currentCon.createStatement();
 
                 UserBean currentUser = new UserBean();
-                   
+
                 PreparedStatement ps = currentCon.prepareStatement(query); // generates sql query
                 int driverId = 1;
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -108,8 +108,8 @@ public class GoogleMapsServlet extends HttpServlet {
                } catch (SQLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-               }     
-            
+               }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
