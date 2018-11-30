@@ -1,9 +1,4 @@
-<%-- 
-    Document   : customerHome
-    Created on : 15-Nov-2018, 20:52:47
-    Author     : Will
---%>
-<%@ page language="java" 
+<%@ page language="java"
          contentType="text/html; charset=windows-1256"
          pageEncoding="windows-1256"
          import="obj.UserBean"
@@ -48,7 +43,7 @@
         %>
         <div class="container">
             <div class="subHeader">
-                Welcome Customer <%=userName%>! Login successful, Your Session ID=<%=sessionID%> <br><br>
+                Welcome Customer <%=userName%>! <br>
 
                 Book a taxi:
             </div>
@@ -74,7 +69,3 @@
         </div>
     </body>
 </html>
-
-
-
-
