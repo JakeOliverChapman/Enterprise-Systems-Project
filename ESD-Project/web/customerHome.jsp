@@ -48,8 +48,7 @@
         %>
         <div class="container">
             <div class="subHeader">
-                Welcome Customer <%=userName%>! <br>
-                Login successful, Your Session ID=<%=sessionID%> <br><br>
+                Welcome Customer <%=userName%>! Login successful, Your Session ID=<%=sessionID%> <br><br>
 
                 Book a taxi:
             </div>
