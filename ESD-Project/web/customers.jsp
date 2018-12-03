@@ -240,7 +240,7 @@ input.ButtonSubmit{
                 <td><%=resultSet.getString("email") %></td>
                 <td><%=resultSet.getString("password") %></td>
                 <td><%=resultSet.getString("dateofbirth") %></td>
-                <td><a class="button" href='delete.jsp?d=<%=resultSet.getString("customerID") %>&j=<%="Customer"%>' role="button">Delete Customer</a></td>
+                <td><a class="button" href='delete.jsp?d=<%=resultSet.getString("customerID") %>&j=<%="Customer"%>' role="button">Delete Customer</a><br></br><a class="button" href='editCustomer.jsp?d=<%=resultSet.getString("customerID") %>&j=<%="Customer"%>' role="button">Edit Customer</a></td>
                 </tr>
                 </table>
             </div>

@@ -256,7 +256,7 @@ a.button:hover, a.button:active {
             <td><%=resultSet.getString("password") %></td>
             <td><%=resultSet.getString("dateOfBirth") %></td>
             <td><%=resultSet.getString("isDriving") %></td>
-            <td><a class="button" href='delete.jsp?d=<%=resultSet.getString("driverID") %>&j=<%="Driver"%>' role="button">Delete Driver</a> <br><br> <a class="button" href='checkJobs.jsp?d=<%=resultSet.getString("driverID") %>&j=<%=resultSet.getString("isDriving")%>' role="button">Check Jobs</a></td>
+            <td><a class="button" href='delete.jsp?d=<%=resultSet.getString("driverID") %>&j=<%="Driver"%>' role="button">Delete Driver</a> <br><br> <a class="button" href='checkJobs.jsp?d=<%=resultSet.getString("driverID") %>&j=<%=resultSet.getString("isDriving")%>' role="button">Check Jobs</a> <br><br> <a class="button" href='editDriver.jsp?d=<%=resultSet.getString("driverID")%>' role="button">Edit Driver</a></td>
             </tr>
             </table>
           </div>
