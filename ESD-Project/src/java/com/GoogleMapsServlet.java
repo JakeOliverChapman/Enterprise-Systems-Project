@@ -24,8 +24,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import javax.servlet.http.HttpSession;
 import model.ConnectionManager;
-import obj.UserBean;
 
 /**
  *
@@ -38,8 +38,9 @@ public class GoogleMapsServlet extends HttpServlet {
     private static String api = "AIzaSyC30fCnCqt0kI4tdOqRMm4mg0kW5oe1tGo";
     static Connection currentCon = null;
     static ResultSet rs = null;
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
     private static final int mileageRate = 2;
+    private static final int flatRate = 10;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -73,20 +74,36 @@ public class GoogleMapsServlet extends HttpServlet {
         int dist = parseInt(distance);
         double km = dist * 0.001;
         System.out.println(km);
-        int miles = (int) Math.round(km * 0.62137);
+        float miles = (int) Math.round(km * 0.62137);
         System.out.println(miles);
         Statement stmt = null;
         String pickupTime = request.getParameter("pickupTime");
+        pickupTime = pickupTime.replace("T", " ");
+        pickupTime = pickupTime + ":00";
+        System.out.println(pickupTime);
+
+//        Cookie[] cookies = request.getCookies();
+//        if (cookies != null) {
+//            for (Cookie cookie : cookies) {
+//                if (cookie.getName().equals("userId")) {
+//                    System.out.println(cookie.getValue());
+//                    userID = Integer.parseInt(cookie.getValue());
+//                    System.out.println("USER ID: " + userID);
+//                }
+//            }
+//        }
+        int userID = -1;
+        HttpSession session = request.getSession(false);
+        String userIDtemp = (String) session.getAttribute("userid");
+        userID = Integer.parseInt(userIDtemp);
+        System.out.println(userID);
 
         try {
-            String query = "insert into PASS.BOOKING_TABLE (DRIVERID,STARTTIME,ENDTIME,CUSTOMERID, BOOKINGREFERENCE,DISTANCEINMILES, PAYMENTAMOUNT, PAYMENTTIME, JOBCOMPLETED) values (?,?,?,?,?,?,?,?,?)";
+            String query = "insert into PASS.BOOKING_TABLE (DRIVERID,STARTTIME,ENDTIME,CUSTOMERID,BOOKINGREFERENCE,DISTANCEINMILES,PAYMENTAMOUNT,PAYMENTTIME,JOBCOMPLETED) values (?,?,?,?,?,?,?,?,?)";
 
             currentCon = ConnectionManager.getConnection();
             stmt = currentCon.createStatement();
-
-            UserBean currentUser = new UserBean();
             double totalCost = 0;
-
             PreparedStatement ps = currentCon.prepareStatement(query); // generates sql query
             int driverId = 0;
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -94,14 +111,14 @@ public class GoogleMapsServlet extends HttpServlet {
             ps.setInt(1, driverId);
             ps.setString(2, pickupTime);
             ps.setString(3, pickupTime);
-            ps.setString(4, currentUser.getID());
+            ps.setInt(4, userID);
             ps.setString(5, ref);
             ps.setDouble(6, miles);
-
             // Calculate total journey cost
-            totalCost += miles * mileageRate;
             if (miles < 5) {
-                totalCost += 2.00;
+                totalCost = flatRate;
+            } else {
+                totalCost = flatRate + (miles * mileageRate);
             }
             ps.setDouble(7, totalCost);
             ps.setTimestamp(8, timestamp);
@@ -111,7 +128,7 @@ public class GoogleMapsServlet extends HttpServlet {
             System.out.println("successfuly inserted job to database");
             ps.close();
             currentCon.close();
-            response.sendRedirect("taxiBooked.jsp");
+            response.sendRedirect("customerHome.jsp");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
