@@ -39,27 +39,27 @@ public class GoogleMapsServlet extends HttpServlet {
     static Connection currentCon = null;
     static ResultSet rs = null;
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
-
+    private static final int mileageRate = 2;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String ori = request.getParameter("origins");
         String desti = request.getParameter("destinations");
-        String a = ori.replace(' ','-');
-        String b = desti.replace(' ','-');
-        System.out.println(ori + " : "+ a);
-        System.out.println(desti + " : "+ b);
-        URL url = new URL("https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+a+",UK&destinations="+b+",UK&key=" + api);
+        String a = ori.replace(' ', '-');
+        String b = desti.replace(' ', '-');
+        System.out.println(ori + " : " + a);
+        System.out.println(desti + " : " + b);
+        URL url = new URL("https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=" + a + ",UK&destinations=" + b + ",UK&key=" + api);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
         con.connect();
 
         BufferedReader in = new BufferedReader(
-        new InputStreamReader(con.getInputStream()));
+                new InputStreamReader(con.getInputStream()));
         String inputLine;
         StringBuffer content = new StringBuffer();
         while ((inputLine = in.readLine()) != null) {
-           content.append(inputLine);
+            content.append(inputLine);
         }
         in.close();
         con.disconnect();
@@ -79,36 +79,43 @@ public class GoogleMapsServlet extends HttpServlet {
         String pickupTime = request.getParameter("pickupTime");
 
         try {
-                String query = "insert into PASS.BOOKING_TABLE (DRIVERID,STARTTIME,ENDTIME,CUSTOMERID, BOOKINGREFERENCE,DISTANCEINMILES, PAYMENTAMOUNT, PAYMENTTIME, JOBCOMPLETED) values (?,?,?,?,?,?,?,?,?)";
+            String query = "insert into PASS.BOOKING_TABLE (DRIVERID,STARTTIME,ENDTIME,CUSTOMERID, BOOKINGREFERENCE,DISTANCEINMILES, PAYMENTAMOUNT, PAYMENTTIME, JOBCOMPLETED) values (?,?,?,?,?,?,?,?,?)";
 
-                currentCon = ConnectionManager.getConnection();
-                stmt=currentCon.createStatement();
+            currentCon = ConnectionManager.getConnection();
+            stmt = currentCon.createStatement();
 
-                UserBean currentUser = new UserBean();
+            UserBean currentUser = new UserBean();
+            double totalCost = 0;
 
-                PreparedStatement ps = currentCon.prepareStatement(query); // generates sql query
-                int driverId = 1;
-                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                String ref = Long.toHexString(Double.doubleToLongBits(Math.random()));
-                ps.setInt(1, driverId);
-                ps.setString(2, pickupTime);
-                ps.setString(3, pickupTime);
-                ps.setString(4, currentUser.getID());
-                ps.setString(5, ref);
-                ps.setDouble(6, miles);
-                ps.setDouble(7, miles * 2);
-                ps.setTimestamp(8, timestamp);
-                ps.setBoolean(9, false);
+            PreparedStatement ps = currentCon.prepareStatement(query); // generates sql query
+            int driverId = 0;
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            String ref = Long.toHexString(Double.doubleToLongBits(Math.random()));
+            ps.setInt(1, driverId);
+            ps.setString(2, pickupTime);
+            ps.setString(3, pickupTime);
+            ps.setString(4, currentUser.getID());
+            ps.setString(5, ref);
+            ps.setDouble(6, miles);
 
-                ps.executeUpdate(); // execute it on test database
-                System.out.println("successfuly inserted job to database");
-                ps.close();
-                currentCon.close();
-                response.sendRedirect("taxiBooked.jsp");
-               } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-               }
+            // Calculate total journey cost
+            totalCost += miles * mileageRate;
+            if (miles < 5) {
+                totalCost += 2.00;
+            }
+            ps.setDouble(7, totalCost);
+            ps.setTimestamp(8, timestamp);
+            ps.setBoolean(9, false);
+
+            ps.executeUpdate(); // execute it on test database
+            System.out.println("successfuly inserted job to database");
+            ps.close();
+            currentCon.close();
+            response.sendRedirect("taxiBooked.jsp");
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
     }
 
