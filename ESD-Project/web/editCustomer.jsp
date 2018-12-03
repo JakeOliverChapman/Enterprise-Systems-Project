@@ -185,10 +185,11 @@
             <li style="float:right" ><a><%=userName%></a></li>
         </ul>
         <div class="subHeader">
-            <form action="LogoutServlet" method="post">
+              <form action="LogoutServlet" method="post">
                 <input style="float:right" class="ButtonSubmit" type="submit" value="Logout" >
-            </form>
+              </form>
         </div><br>
+    <a class="button" href='customers.jsp' role="button">Go back</a><br><br>
         <h2 align="center">CUSTOMER INFORMATION</h2><br>
 
 
@@ -237,8 +238,8 @@
             <div id="tbl-content">
                 <table>
                     <tr>
-                            <FORM ACTION="update.jsp" METHOD="POST">
-                                <td><%=resultSet.getString("customerid")%></td>
+                            <FORM ACTION="update.jsp?d=<%=resultSet.getString("customerID")%>&j=<%="Customer"%>" METHOD="POST">
+                                <td><%=resultSet.getString("customerID")%></td>
                                 <td><input type="text" class="textField" name="fn" value="<%=resultSet.getString("firstName")%>"</td>
                                 <td><input type="text" class="textField" name="ln" value="<%=resultSet.getString("lastName")%>"</td>
                                 <td><input type="text" class="textField" name="em" value="<%=resultSet.getString("email")%>"</td>

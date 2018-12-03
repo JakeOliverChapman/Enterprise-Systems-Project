@@ -189,6 +189,7 @@
                 <input style="float:right" class="ButtonSubmit" type="submit" value="Logout" >
             </form>
         </div><br>
+        <a class="button" href='drivers.jsp' role="button">Go back</a><br><br>
         <h2 align="center">DRIVER INFORMATION</h2><br>
 
 
@@ -228,35 +229,36 @@
                     connection = DriverManager.getConnection(connectionUrl, userId, password);
                     statement = connection.createStatement();
                     int id = Integer.parseInt(request.getParameter("d"));
-                    String sql = "SELECT * FROM PASS.DRIVER_TABLE WHERE DRIVERID=" + "1";
+                    String sql = "SELECT * FROM PASS.DRIVER_TABLE WHERE DRIVERID=" + id;
                     resultSet = statement.executeQuery(sql);
+
                     
-                    resultSet.next();
+                    //resultSet.next();
                     System.out.println(id);
                     System.out.println(resultSet);
-                    
+                    while (resultSet.next()) {
             %>
             <div id="tbl-content">
                 <table>
                     <tr>
-                    <FORM ACTION="update.jsp?d=<%=resultSet.getString("driverID") %>&j=<%="Driver"%>" METHOD="POST">
-                                <td><%=resultSet.getString("driverID")%></td>
-                                <td><input type="text" class="textField" name="fn" value="<%=resultSet.getString("firstName")%>" default_value="test"></td>
-                                <td><input type="text" class="textField" name="ln" value="<%=resultSet.getString("lastName")%>"></td>
-                                <td><input type="text" class="textField" name="em" value="<%=resultSet.getString("email")%>"></td>
-                                <td><input type="text" class="textField" name="pw" value="<%=resultSet.getString("password")%>"></td>
-                                <td><input type="text" class="textField" name="dob" value="<%=resultSet.getString("dateOfBirth")%>"></td>
-                                <td><%=resultSet.getString("isDriving")%></td>
-                                <td><INPUT TYPE="SUBMIT" value="Submit"></td>
-                            </form>
+                    <FORM ACTION="update.jsp?d=<%=resultSet.getString("driverID")%>&j=<%="Driver"%>" METHOD="POST">
+                        <td><%=resultSet.getString("driverID")%></td>
+                        <td><input type="text" class="textField" name="fn" value="<%=resultSet.getString("firstName")%>" default_value="test"></td>
+                        <td><input type="text" class="textField" name="ln" value="<%=resultSet.getString("lastName")%>"></td>
+                        <td><input type="text" class="textField" name="em" value="<%=resultSet.getString("email")%>"></td>
+                        <td><input type="text" class="textField" name="pw" value="<%=resultSet.getString("password")%>"></td>
+                        <td><input type="text" class="textField" name="dob" value="<%=resultSet.getString("dateOfBirth")%>"></td>
+                        <td><%=resultSet.getString("isDriving")%></td>
+                        <td><INPUT TYPE="SUBMIT" value="Submit"></td>
+                    </form>
                     </tr>
                 </table>
             </div>
             <%
-                    
+                   }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    System.out.println("Yeet");
+                    System.out.println("Driver not found");
                 }
             %>
 
