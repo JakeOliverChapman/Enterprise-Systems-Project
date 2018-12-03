@@ -237,8 +237,8 @@
             <div id="tbl-content">
                 <table>
                     <tr>
-                        <td><%=resultSet.getString("customerid")%><td>
                             <FORM ACTION="update.jsp" METHOD="POST">
+                                <td><%=resultSet.getString("customerid")%></td>
                                 <td><input type="text" class="textField" name="fn" value="<%=resultSet.getString("firstName")%>"</td>
                                 <td><input type="text" class="textField" name="ln" value="<%=resultSet.getString("lastName")%>"</td>
                                 <td><input type="text" class="textField" name="em" value="<%=resultSet.getString("email")%>"</td>

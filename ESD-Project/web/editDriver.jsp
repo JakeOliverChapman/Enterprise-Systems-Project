@@ -227,17 +227,22 @@
                 try {
                     connection = DriverManager.getConnection(connectionUrl, userId, password);
                     statement = connection.createStatement();
-                    String id = request.getParameter("d");
-                    String sql = "SELECT * FROM PASS.DRIVER_TABLE WHERE DRIVERID=" + id;
+                    int id = Integer.parseInt(request.getParameter("d"));
+                    String sql = "SELECT * FROM PASS.DRIVER_TABLE WHERE DRIVERID=" + "1";
                     resultSet = statement.executeQuery(sql);
+                    
+                    resultSet.next();
+                    System.out.println(id);
+                    System.out.println(resultSet);
+                    
             %>
             <div id="tbl-content">
                 <table>
                     <tr>
- 
-                            <FORM ACTION="update.jsp" METHOD="POST">
-                                <td><input type="text" class="textField" name="fn" value="<%=resultSet.getString("firstName")%>"></td>
-                                <td><input type="text" class="textField" name="Ln" value="<%=resultSet.getString("lastName")%>"></td>
+                    <FORM ACTION="update.jsp?d=<%=resultSet.getString("driverID") %>&j=<%="Driver"%>" METHOD="POST">
+                                <td><%=resultSet.getString("driverID")%></td>
+                                <td><input type="text" class="textField" name="fn" value="<%=resultSet.getString("firstName")%>" default_value="test"></td>
+                                <td><input type="text" class="textField" name="ln" value="<%=resultSet.getString("lastName")%>"></td>
                                 <td><input type="text" class="textField" name="em" value="<%=resultSet.getString("email")%>"></td>
                                 <td><input type="text" class="textField" name="pw" value="<%=resultSet.getString("password")%>"></td>
                                 <td><input type="text" class="textField" name="dob" value="<%=resultSet.getString("dateOfBirth")%>"></td>
@@ -251,6 +256,7 @@
                     
                 } catch (Exception e) {
                     e.printStackTrace();
+                    System.out.println("Yeet");
                 }
             %>
 
