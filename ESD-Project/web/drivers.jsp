@@ -189,6 +189,7 @@
             <li><a href="headOfficeHome.jsp">Home</a></li>
             <li><a href="customers.jsp">View Customers</a></li>
             <li><a class="active" href="drivers.jsp">View Drivers</a></li>
+            <li><a href="turnover.jsp">View Turnover</a></li>
             <li><a href="completedJobs.jsp">Completed Jobs</a></li>
             <li style="float:right" ><a><%=userName%></a></li>
         </ul>
