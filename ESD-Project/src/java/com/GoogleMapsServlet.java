@@ -72,34 +72,24 @@ public class GoogleMapsServlet extends HttpServlet {
         pickupTime = pickupTime + ":00";
         System.out.println(pickupTime);
 
-//        Cookie[] cookies = request.getCookies();
-//        if (cookies != null) {
-//            for (Cookie cookie : cookies) {
-//                if (cookie.getName().equals("userId")) {
-//                    System.out.println(cookie.getValue());
-//                    userID = Integer.parseInt(cookie.getValue());
-//                    System.out.println("USER ID: " + userID);
-//                }
-//            }
-//        }CUSTOMER_INVOICE
-        
-        ServletContext application = getServletConfig().getServletContext();  
-            
+        ServletContext application = getServletConfig().getServletContext();
+
         int userID = -1;
         HttpSession session = request.getSession(false);
         String userIDtemp = (String) session.getAttribute("userid");
         userID = Integer.parseInt(userIDtemp);
         System.out.println(userID);
-        
+
         int rateIncrement = 0;
-        
+
         try {
-            String query = "insert into PASS.BOOKING_TABLE (DRIVERID,STARTTIME,ENDTIME,CUSTOMERID,BOOKINGREFERENCE,DISTANCEINMILES,PAYMENTAMOUNT,PAYMENTTIME,JOBCOMPLETED) values (?,?,?,?,?,?,?,?,?)";
+            String query = "insert into PASS.BOOKING_TABLE (DRIVERID,STARTTIME,ENDTIME,CUSTOMERID,BOOKINGREFERENCE,DISTANCEINMILES,PAYMENTAMOUNT,PAYMENTTIME,JOBCOMPLETED,ORIGINNAME,DESTINATIONNAME) values (?,?,?,?,?,?,?,?,?,?,?)";
+
             try {
                 String data = (String) application.getAttribute("increment");
                 System.out.println(data);
                 rateIncrement = parseInt(data);
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 System.out.println("rateIncrement not set");
             }
 
@@ -128,6 +118,8 @@ public class GoogleMapsServlet extends HttpServlet {
             ps.setDouble(7, totalCost);
             ps.setTimestamp(8, timestamp);
             ps.setBoolean(9, false);
+            ps.setString(10, origin);
+            ps.setString(11, dest);
 
             ps.executeUpdate(); // execute it on test database
             System.out.println("successfuly inserted job to database");

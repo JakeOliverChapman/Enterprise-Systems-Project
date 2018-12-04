@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.sql.DriverManager"%>
 <%@ page language="java" 
          contentType="text/html; charset=windows-1256"
@@ -185,7 +186,9 @@
                                 <td><b> Booking Reference </b></td>
                                 <td><b> Pick-up Date and Time </b></td>
                                 <td><b> Distance (Miles) </b></td>
-                                <td><b> Journey Cost </b></td>
+                                <td><b> Journey Cost (VAT) </b></td>
+                                <td><b> Pick Up Location </b></td>
+                                <td><b> Destination </b></td>
                             </tr>
                         </table>
                     </div>
@@ -196,15 +199,19 @@
                             String sql = "SELECT * FROM PASS.BOOKING_TABLE WHERE CUSTOMERID=" + Id;
                             System.out.println(Id);
                             resultSet = statement.executeQuery(sql);
+                            DecimalFormat df = new DecimalFormat("##.00");
                             while (resultSet.next()) {
+                            double VATCalc = (Double.parseDouble(resultSet.getString("paymentamount"))) / 5;
                     %>
                     <div id="tbl-content">
                         <table>
                             <tr>
                                 <td><%=resultSet.getString("bookingreference")%></td>
-                                <td><%=resultSet.getString("paymenttime")%></td>
+                                <td><%=resultSet.getString("starttime")%></td>
                                 <td><%=resultSet.getString("distanceinmiles")%></td>
-                                <td><%=resultSet.getString("paymentamount")%></td>
+                                <td>£<%=resultSet.getString("paymentamount")%> (£<%=df.format(VATCalc)%>)</td>
+                                <td><%=resultSet.getString("originName")%></td>
+                                <td><%=resultSet.getString("destinationName")%></td>
                             </tr>
                         </table>
                     </div>

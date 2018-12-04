@@ -41,7 +41,7 @@
 
         <div class="container">
             <div class="mainHeader" align="center">
-                Register
+                Register Driver
             </div>
             <form class="formCenter" role="form" action="RegisterServlet" method="post">
                 <input type="text" class="textField" name="fn" placeholder="First name">

@@ -13,10 +13,8 @@
     <head>
         <link rel="stylesheet" href="primaryStyle.css">
 
-        <title> View Drivers </title>
-
+        <title> Completed Jobs </title>
         <style>
-
             h1{
                 font-size: 30px;
                 color: #fff;
@@ -81,7 +79,7 @@
             a.button:link, a.button:visited {
                 background-color: #f44336;
                 color: white;
-                padding: 14px 25px;
+                padding: 10px 15px;
                 text-align: center;
                 text-decoration: none;
                 display: inline-block;
@@ -128,8 +126,22 @@
                 display: inline-block;
                 border:0px;
             }
+            a.button:link, a.button:visited {
+                background-color: #f44336;
+                color: white;
+                padding: 14px 25px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+            }
+
+
+            a.button:hover, a.button:active {
+                background-color: red;
+            }
         </style>
     </head>
+
     <body>
         <%
             //allow access only if session exists
@@ -172,12 +184,13 @@
 
         %>
 
+
         <ul>
             <li><a href="headOfficeHome.jsp">Home</a></li>
-            <li><a href="customers.jsp">Edit Customer</a></li>
-            <li><a class="active" href="drivers.jsp">Edit Drivers</a></li>
+            <li><a href="customers.jsp">View Customers</a></li>
+            <li><a href="drivers.jsp">View Drivers</a></li>
             <li><a href="turnover.jsp">View Turnover</a></li>
-            <li><a href="completedJobs.jsp">Completed Jobs</a></li>
+            <li><a class="active" href="completedJobs.jsp">Completed Jobs</a></li>
             <li style="float:right" ><a><%=userName%></a></li>
         </ul>
         <div class="subHeader">
@@ -185,8 +198,8 @@
                 <input style="float:right" class="ButtonSubmit" type="submit" value="Logout" >
             </form>
         </div><br>
-        <a class="button" href='drivers.jsp' role="button">Go back</a><br><br>
-        <h2 align="center">DRIVER INFORMATION</h2><br>
+        <br><br>
+        <h2 align="center">COMPLETED JOBS</h2><br>
 
 
         <%
@@ -209,57 +222,44 @@
             <div id="tbl-header">
                 <table>
                     <tr>
-                        <td><b>ID</b></td>
-                        <td><b>First Name</b></td>
-                        <td><b>Last Name</b></td>
-                        <td><b>Email</b></td>
-                        <td><b>Password</b></td>
-                        <td><b>Date Of Birth</b></td>
-                        <td><b>Is Driving</b></td>
-                        <td><b>Action</b></td>
+                                <td><b> Customer ID </b></td>
+                                <td><b> Pick-up Date and Time </b></td>
+                                <td><b> Distance (Miles) </b></td>
+                                <td><b> Journey Charge </b></td>
+                                <td><b> Pick Up Location </b></td>
+                                <td><b> Destination </b></td>
                     </tr>
                 </table>
-            </div>
+            </div>    
             <%
                 try {
                     connection = DriverManager.getConnection(connectionUrl, userId, password);
                     statement = connection.createStatement();
-                    int id = Integer.parseInt(request.getParameter("d"));
-                    String sql = "SELECT * FROM PASS.DRIVER_TABLE WHERE DRIVERID=" + id;
-                    resultSet = statement.executeQuery(sql);
+                    String sql = "SELECT * FROM PASS.BOOKING_TABLE WHERE JOBCOMPLETED = true";
 
-                    //resultSet.next();
-                    System.out.println(id);
-                    System.out.println(resultSet);
+                    resultSet = statement.executeQuery(sql);
                     while (resultSet.next()) {
             %>
             <div id="tbl-content">
                 <table>
                     <tr>
-                    <FORM ACTION="update.jsp?d=<%=resultSet.getString("driverID")%>&j=<%="Driver"%>" METHOD="POST">
-                        <td><%=resultSet.getString("driverID")%></td>
-                        <td><input type="text" class="textField" name="fn" value="<%=resultSet.getString("firstName")%>" default_value="test"></td>
-                        <td><input type="text" class="textField" name="ln" value="<%=resultSet.getString("lastName")%>"></td>
-                        <td><input type="text" class="textField" name="em" value="<%=resultSet.getString("email")%>"></td>
-                        <td><input type="text" class="textField" name="pw" value="<%=resultSet.getString("password")%>"></td>
-                        <td><input type="text" class="textField" name="dob" value="<%=resultSet.getString("dateOfBirth")%>"></td>
-                        <td><%=resultSet.getString("isDriving")%></td>
-                        <td><INPUT TYPE="SUBMIT" value="Submit"></td>
-                    </form>
+                        <td><%=resultSet.getString("customerID")%></td>
+                        <td><%=resultSet.getString("startTime")%></td>
+                        <td><%=resultSet.getString("distanceInMiles")%></td>
+                        <td>£<%=resultSet.getString("paymentAmount")%></td>
+                        <td><%=resultSet.getString("originName")%></td>
+                        <td><%=resultSet.getString("destinationName")%></td>
                     </tr>
                 </table>
             </div>
             <%
                     }
+
                 } catch (Exception e) {
                     e.printStackTrace();
-                    System.out.println("Driver not found");
                 }
             %>
-
-
         </section>
-
     </body>
-
 </html>
+
