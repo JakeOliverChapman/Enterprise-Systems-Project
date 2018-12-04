@@ -11,6 +11,16 @@
          %>
 <!DOCTYPE html>
 
+<script type="text/javascript">
+    function doalert(checkboxElem) {
+        if (checkboxElem.checked) {
+            alert("Job completed")
+        } else {
+            alert("Job not completed")
+        }
+    }
+</script>
+
 <!-- Add above content ^ -->
 <html>
     <head>
@@ -55,8 +65,6 @@
                 color: #fff;
                 border-bottom: solid 1px rgba(255,255,255,0.1);
             }
-
-
 
             body{
                 background: -webkit-linear-gradient(left, #252228, #252228);
@@ -281,12 +289,10 @@
                                 <td><%=result2.getString("Distanceinmiles")%></td>
                                 <td><%=result2.getString("Paymentamount")%></td>
                                 <td><%=result2.getString("PaymentTime")%></td>
-                                <td><%=result2.getString("jobcompleted")%></td>
+                                <td><%=result2.getString("jobcompleted")%> <input type="checkbox" id="jobComplete" name="jobComplete" onchange="doalert(this)"> </td>
                             </tr>
                         </table>
                     </div>
-
-
                     <%
                                 }
                             }
