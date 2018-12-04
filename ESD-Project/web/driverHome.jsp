@@ -11,17 +11,6 @@
          %>
 <!DOCTYPE html>
 
-<script type="text/javascript">
-    function doalert(checkboxElem) {
-        if (checkboxElem.checked) {
-            alert("Job completed")
-        } else {
-            alert("Job not completed")
-        }
-    }
-</script>
-
-<!-- Add above content ^ -->
 <html>
     <head>
         <link rel="stylesheet" href="primaryStyle.css">
@@ -35,19 +24,23 @@
                 text-align: center;
                 margin-bottom: 15px;
             }
+
             table{
                 width:100%;
                 table-layout: fixed;
             }
+
             table.tbl-header{
                 background-color: rgba(255,255,255,0.3);
             }
+
             table.tbl-content{
                 height:300px;
                 overflow-x:auto;
                 margin-top: 0px;
                 border: 1px solid rgba(255,255,255,0.3);
             }
+
             th{
                 padding: 20px 15px;
                 text-align: left;
@@ -56,6 +49,7 @@
                 color: #fff;
                 text-transform: uppercase;
             }
+
             td{
                 padding: 15px;
                 text-align: left;
@@ -71,21 +65,24 @@
                 background: linear-gradient(to right, #252228, #252228);
                 font-family: 'Roboto', sans-serif;
             }
+
             section{
                 margin: 50px;
             }
 
             /* for custom scrollbar for webkit browser*/
-
             ::-webkit-scrollbar {
                 width: 6px;
             } 
+
             ::-webkit-scrollbar-track {
                 -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
             } 
+
             ::-webkit-scrollbar-thumb {
                 -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
             }
+
             a.button:link, a.button:visited {
                 background-color: #f44336;
                 color: white;
@@ -94,7 +91,6 @@
                 text-decoration: none;
                 display: inline-block;
             }
-
 
             a.button:hover, a.button:active {
                 background-color: red;
@@ -127,6 +123,7 @@
             .active {
                 background-color: #4CAF50;
             }
+
             input.ButtonSubmit{
                 background-color: #f44336;
                 color: white;
@@ -136,6 +133,7 @@
                 display: inline-block;
                 border:0px;
             }
+
             a.button:link, a.button:visited {
                 background-color: #f44336;
                 color: white;
@@ -145,7 +143,6 @@
                 display: inline-block;
             }
 
-
             a.button:hover, a.button:active {
                 background-color: red;
             }
@@ -153,9 +150,8 @@
     </head>
 
     <body>
-
         <%
-            //allow access only if session exists
+            // Allow access only if session exists
             String user = null;
             if (session.getAttribute("user") == null) {
                 response.sendRedirect("index.html");
@@ -166,8 +162,8 @@
             String userName = null;
             String sessionID = null;
             String userType = null;
-
             Cookie[] cookies = request.getCookies(); // Assign user variables
+
             if (cookies != null) {
                 for (Cookie cookie : cookies) {
                     if (cookie.getName().equals("userName")) {
@@ -178,41 +174,33 @@
                     }
                     if (cookie.getName().equals("userType")) {
                         userType = cookie.getValue();
-
                     }
-
                 }
             } else {
                 sessionID = session.getId();
             }
-            if (userType.equals("Driver")) {  // Check that the user has correct privelege
+            if (userType.equals("Driver")) { // Check that the user has correct privelege
                 System.out.println("Welcome Driver");
-
             } else {
                 System.out.println("Records show you are not a driver");
                 response.sendRedirect("index.html");
             }
-
         %>
-
         <ul>
-            <li><a href="headOfficeHome.jsp">Home</a></li>
-            <li><a href="customers.jsp">PlaceHolder</a></li>
-            <li><a class="active" href="drivers.jsp">PlaceHolder</a></li>
-            <li style="float:right" ><a><%=userName%></a></li>
+            <li> <a href="headOfficeHome.jsp"> Home </a> </li>
+            <li> <a class="active" href="drivers.jsp"> Job List </a> </li>
+            <li style="float:right" > <a> <%=userName%> </a> </li>
         </ul>
-        <div class="subHeader">
+        <div>
             <form action="LogoutServlet" method="post">
                 <input style="float:right" class="ButtonSubmit" type="submit" value="Logout" >
             </form>
-        </div><br>
-        <a class="button" href='drivers.jsp' role="button">Go back</a><br><br>
-
-        <h2 align="center">BOOKED JOURNEYS</h2><br>
-
+        </div>
+        <br>
+        <a style="float:right" class="button" href='drivers.jsp' role="button"> Go back </a><br><br>
+        <h2 align="center"> Booked Journeys </h2><br>
 
         <%
-
             String driverName = "org.apache.derby.jdbc.ClientDriver";
             String connectionUrl = "jdbc:derby://localhost:1527/userlogin";
             String userId = "pass";
@@ -276,20 +264,19 @@
 
                                 ResultSet result2 = statement2.executeQuery();
                                 while (result2.next()) {
-
                     %>
                     <div id="tbl-content">
                         <table>
                             <tr>
-                                <td><%=result2.getString("DriverID")%></td>
-                                <td><%=result2.getString("StartTime")%></td>
-                                <td><%=result2.getString("endTime")%></td>
-                                <td><%=result2.getString("CustomerId")%></td>
-                                <td><%=result2.getString("Bookingreference")%></td>
-                                <td><%=result2.getString("Distanceinmiles")%></td>
-                                <td><%=result2.getString("Paymentamount")%></td>
-                                <td><%=result2.getString("PaymentTime")%></td>
-                                <td><%=result2.getString("jobcompleted")%> <input type="checkbox" id="jobComplete" name="jobComplete" onchange="doalert(this)"> </td>
+                                <td> <%=result2.getString("DriverID")%> </td>
+                                <td> <%=result2.getString("StartTime")%> </td>
+                                <td> <%=result2.getString("endTime")%> </td>
+                                <td> <%=result2.getString("CustomerId")%> </td>
+                                <td> <%=result2.getString("Bookingreference")%> </td>
+                                <td> <%=result2.getString("Distanceinmiles")%> </td>
+                                <td> <%=result2.getString("Paymentamount")%> </td>
+                                <td> <%=result2.getString("PaymentTime")%> </td>
+                                <td> <input type="checkbox" name="jobComplete" action="jobCompleted.jsp" value="false"> </td>
                             </tr>
                         </table>
                     </div>
@@ -302,7 +289,6 @@
                         }
                     %>
                     </section>
-
                     </body>
                     </html>
 

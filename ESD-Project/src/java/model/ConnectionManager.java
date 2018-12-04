@@ -4,28 +4,24 @@ import java.sql.*;
 
 public class ConnectionManager {
 
-    static Connection con;
+    static Connection connection;
     static String url;
+    static String username = "pass";
+    static String password = "pass";
 
     public static Connection getConnection() {
-        System.out.println("Trying to connect.........");
+        System.out.println("Attempting onnecton.");
         try {
-            String url = "jdbc:derby://localhost:1527/userlogin";
-
+            String connectionURL = "jdbc:derby://localhost:1527/userlogin";
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-
             try {
-                con = DriverManager.getConnection(url, "pass", "pass");
-                // assuming your SQL Server's username is "pass"               
-                // and password is "pass"
-
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+                connection = DriverManager.getConnection(connectionURL, username, password);
+            } catch (SQLException e) {
+                System.out.println(e);
             }
         } catch (ClassNotFoundException e) {
             System.out.println(e);
         }
-
-        return con;
+        return connection;
     }
 }
