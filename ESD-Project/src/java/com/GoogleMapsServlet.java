@@ -88,7 +88,7 @@ public class GoogleMapsServlet extends HttpServlet {
         System.out.println(userID);
 
         try {
-            String query = "insert into PASS.BOOKING_TABLE (DRIVERID,STARTTIME,ENDTIME,CUSTOMERID,BOOKINGREFERENCE,DISTANCEINMILES,PAYMENTAMOUNT,PAYMENTTIME,JOBCOMPLETED) values (?,?,?,?,?,?,?,?,?)";
+            String query = "insert into PASS.BOOKING_TABLE (DRIVERID,STARTTIME,ENDTIME,CUSTOMERID,BOOKINGREFERENCE,DISTANCEINMILES,PAYMENTAMOUNT,PAYMENTTIME,JOBCOMPLETED,ORIGINNAME,DESTINATIONNAME) values (?,?,?,?,?,?,?,?,?,?,?)";
 
             currentCon = ConnectionManager.getConnection();
             stmt = currentCon.createStatement();
@@ -114,6 +114,8 @@ public class GoogleMapsServlet extends HttpServlet {
             ps.setDouble(7, totalCost);
             ps.setTimestamp(8, timestamp);
             ps.setBoolean(9, false);
+            ps.setString(10, origin);
+            ps.setString(11, dest);
 
             ps.executeUpdate(); // execute it on test database
             System.out.println("successfuly inserted job to database");

@@ -32,25 +32,28 @@ INSERT INTO driver_table (firstName, lastName, email, password, dateOfBirth, isD
 
 
 CREATE TABLE booking_table (
-	driverID varchar(20),
-	startTime  time NOT NULL,
+	driverID int,
+	startTime  timestamp NOT NULL,
 	endTime  time,
-	customerID  varchar(20) NOT NULL,
+	customerID  int NOT NULL,
 	bookingReference  varchar(20),
 	distanceInMiles float NOT NULL,
 	paymentAmount float(12) DEFAULT 0.0,
 	paymentTime  timestamp NOT NULL,
-        jobCompleted boolean default false,
+    jobCompleted boolean default false,
+	originName varchar(255),
+	destinationName varchar(255),
 	PRIMARY KEY (bookingReference)
 ) ;
-INSERT INTO booking_table (driverID, startTime, endTime, customerID, bookingReference, distanceInMiles, paymentAmount, paymentTime, jobCompleted) VALUES('12A3PSHAEMZX5OJA9G60', '9:30:00', '10:00:00', 'AYEV0SEEIBSH6JK4N83S', 'DFRA8LXBPNMMGKQ3HAEL', 9, 17.98, '2018-11-05 09:31:51', 'true');
-INSERT INTO booking_table (driverID, startTime, endTime, customerID, bookingReference, distanceInMiles, paymentAmount, paymentTime, jobCompleted) VALUES('12A3PSHAEMZX5OJA9G60', '10:30:00', '11:00:00', 'AYEV0SEEIBSH6JK4N83S', 'I40DNT3J98419ZQXMMEZ', 9, 17.98, '2018-11-05 10:31:51', 'true');
-INSERT INTO booking_table (driverID, startTime, endTime, customerID, bookingReference, distanceInMiles, paymentAmount, paymentTime, jobCompleted) VALUES('', '11:00:00', '11:30:00', 'AGYE7LENFOLF11A1NXP1', 'TTB2EJ9L0R53VIOFDYZ0', 22, 37.98, '2018-11-05 11:00:21', 'false');
+INSERT INTO booking_table (driverID, startTime, endTime, customerID, bookingReference, distanceInMiles, paymentAmount, paymentTime, jobCompleted, originName, destinationName) VALUES(1, '2018-11-05 09:30:00', '10:00:00', 2, 'DFRA8LXBPNMMGKQ3HAEL', 9, 17.98, '2018-11-05 09:31:51', 'false', 'Clifton Observatory, Bristol', 'Temple Meads, Bristol');
+INSERT INTO booking_table (driverID, startTime, endTime, customerID, bookingReference, distanceInMiles, paymentAmount, paymentTime, jobCompleted, originName, destinationName) VALUES(3, '2018-11-05 10:30:00', '11:00:00', 1, 'I40DNT3J98419ZQXMMEZ', 9, 17.98, '2018-11-05 10:31:51', 'false', 'Temple Meads, Bristol', 'Clifton Observatory, Bristol');
+INSERT INTO booking_table (driverID, startTime, endTime, customerID, bookingReference, distanceInMiles, paymentAmount, paymentTime, jobCompleted, originName, destinationName) VALUES(2, '2018-11-05 11:00:00', '11:30:00', 1, 'TTB2EJ9L0R53VIOFDYZ0', 22, 37.98, '2018-11-05 11:00:21', 'false', 'Bond Street South, Bristol', 'Green Park, Bath');
 
 
 CREATE TABLE driver_invoice (
-	invoiceID varchar(20) NOT NULL,
-	driverID varchar(20) NOT NULL,
+	invoiceID  int NOT NULL GENERATED ALWAYS AS IDENTITY
+        (START WITH 1, INCREMENT BY 1),
+	driverID int NOT NULL,
 	paymentTime timestamp NOT NULL,
 	paymentAmount float(12) DEFAULT 0.00,
 	journeyStart timestamp,
@@ -58,14 +61,15 @@ CREATE TABLE driver_invoice (
 	
 	PRIMARY KEY (invoiceID) 
 ) ;
-INSERT INTO driver_invoice (invoiceID, driverID, paymentTime, paymentAmount, journeyStart, journeyEnd) VALUES('a7j3mklf9oqp12khw', '1dw0xm3ill90sn23wpg', '2018-11-05 14:00:00',55.00, '2018-11-05 14:25:00','2018-11-05 15:50:08');
-INSERT INTO driver_invoice (invoiceID, driverID, paymentTime, paymentAmount, journeyStart, journeyEnd) VALUES('b7j3mklf9oqp12khw', '2dw0xm3ill90sn23wpg', '2018-11-05 17:36:20',28.00, '2018-11-05 17:59:30','2018-11-05 18:25:11');
-INSERT INTO driver_invoice (invoiceID, driverID, paymentTime, paymentAmount, journeyStart, journeyEnd) VALUES('c7j3mklf9oqp12khw', '3dw0xm3ill90sn23wpg', '2018-11-05 11:22:05',34.00, '2018-11-05 11:44:12','2018-11-05 12:25:33');
+INSERT INTO driver_invoice (driverID, paymentTime, paymentAmount, journeyStart, journeyEnd) VALUES(1, '2018-11-05 14:00:00',55.00, '2018-11-05 14:25:00','2018-11-05 15:50:08');
+INSERT INTO driver_invoice (driverID, paymentTime, paymentAmount, journeyStart, journeyEnd) VALUES(2, '2018-11-05 17:36:20',28.00, '2018-11-05 17:59:30','2018-11-05 18:25:11');
+INSERT INTO driver_invoice (driverID, paymentTime, paymentAmount, journeyStart, journeyEnd) VALUES(3, '2018-11-05 11:22:05',34.00, '2018-11-05 11:44:12','2018-11-05 12:25:33');
 
 
 CREATE TABLE customer_invoice (
-	invoiceID varchar(20) NOT NULL,
-	customerID varchar(20) NOT NULL,
+	invoiceID  int NOT NULL GENERATED ALWAYS AS IDENTITY
+        (START WITH 1, INCREMENT BY 1),
+	customerID int NOT NULL,
 	paymentTime timestamp NOT NULL,
 	paymentAmount float(12) DEFAULT 0.00,
 	journeyStart timestamp,
@@ -73,9 +77,9 @@ CREATE TABLE customer_invoice (
 	
 	PRIMARY KEY (invoiceID) 
 ) ;
-INSERT INTO customer_invoice (invoiceID, customerID, paymentTime, paymentAmount, journeyStart, journeyEnd) VALUES('a7j3mklf9oqp12khwzn3', '1jw0xm3ill90sn23wpgn', '2018-11-05 14:00:00', 55.00, '2018-11-11 14:25:00','2018-11-05 15:50:08');
-INSERT INTO customer_invoice (invoiceID, customerID, paymentTime, paymentAmount, journeyStart, journeyEnd) VALUES('b7j3mklf9oqp12khwzn3', '2jw0xm3ill90sn23wpgn', '2018-11-05 17:36:20', 28.00, '2018-11-11 17:59:30','2018-11-05 18:25:11');
-INSERT INTO customer_invoice (invoiceID, customerID, paymentTime, paymentAmount, journeyStart, journeyEnd) VALUES('c7j3mklf9oqp12khwzn3', '3jw0xm3ill90sn23wpgn', '2018-11-05 11:22:05', 34.00, '2018-11-11 11:44:12','2018-11-05 12:25:33');
+INSERT INTO customer_invoice (customerID, paymentTime, paymentAmount, journeyStart, journeyEnd) VALUES(1, '2018-11-05 14:00:00', 55.00, '2018-11-11 14:25:00','2018-11-05 15:50:08');
+INSERT INTO customer_invoice (customerID, paymentTime, paymentAmount, journeyStart, journeyEnd) VALUES(1, '2018-11-05 17:36:20', 28.00, '2018-11-11 17:59:30','2018-11-05 18:25:11');
+INSERT INTO customer_invoice (customerID, paymentTime, paymentAmount, journeyStart, journeyEnd) VALUES(2, '2018-11-05 11:22:05', 34.00, '2018-11-11 11:44:12','2018-11-05 12:25:33');
 
 
 CREATE TABLE head_office (
