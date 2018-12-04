@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import model.ConnectionManager;
 
@@ -71,25 +72,28 @@ public class GoogleMapsServlet extends HttpServlet {
         pickupTime = pickupTime + ":00";
         System.out.println(pickupTime);
 
-//        Cookie[] cookies = request.getCookies();
-//        if (cookies != null) {
-//            for (Cookie cookie : cookies) {
-//                if (cookie.getName().equals("userId")) {
-//                    System.out.println(cookie.getValue());
-//                    userID = Integer.parseInt(cookie.getValue());
-//                    System.out.println("USER ID: " + userID);
-//                }
-//            }
-//        }
+        ServletContext application = getServletConfig().getServletContext();
+
         int userID = -1;
         HttpSession session = request.getSession(false);
         String userIDtemp = (String) session.getAttribute("userid");
         userID = Integer.parseInt(userIDtemp);
         System.out.println(userID);
 
+        int rateIncrement = 0;
+
         try {
             String query = "insert into PASS.BOOKING_TABLE (DRIVERID,STARTTIME,ENDTIME,CUSTOMERID,BOOKINGREFERENCE,DISTANCEINMILES,PAYMENTAMOUNT,PAYMENTTIME,JOBCOMPLETED,ORIGINNAME,DESTINATIONNAME) values (?,?,?,?,?,?,?,?,?,?,?)";
 
+            try {
+                String data = (String) application.getAttribute("increment");
+                System.out.println(data);
+                rateIncrement = parseInt(data);
+            } catch (NumberFormatException e) {
+                System.out.println("rateIncrement not set");
+            }
+
+            System.out.println(rateIncrement);
             currentCon = ConnectionManager.getConnection();
             stmt = currentCon.createStatement();
             double totalCost = 0;
@@ -106,7 +110,7 @@ public class GoogleMapsServlet extends HttpServlet {
 
             // Calculate total journey cost
             if (miles < 5) {
-                totalCost = flatRate;
+                totalCost = flatRate + rateIncrement;
             } else {
                 totalCost = flatRate + (miles * mileageRate);
             }

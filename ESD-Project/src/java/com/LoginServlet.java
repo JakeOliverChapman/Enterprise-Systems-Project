@@ -1,6 +1,7 @@
 package com;
 
 import java.io.IOException;
+import javax.servlet.ServletContext;
 import obj.UserBean;
 import obj.UserDAO;
 import javax.servlet.ServletException;
@@ -22,6 +23,10 @@ public class LoginServlet extends HttpServlet {
             user = UserDAO.login(user);
 
             if (user.isValid()) {
+                ServletContext application = getServletConfig().getServletContext();  
+                String data = (String) application.getAttribute("increment");
+                System.out.println(data);
+                
                 HttpSession session = request.getSession();
                 session.setAttribute("user", "user");
                 session.setAttribute("userid", user.getID());
