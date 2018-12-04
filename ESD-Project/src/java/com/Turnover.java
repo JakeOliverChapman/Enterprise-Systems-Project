@@ -60,10 +60,14 @@ public class Turnover extends HttpServlet {
             while (rs.next()){
                 String sum = rs.getString(1);
                 String count = rs.getString(2);
-                counter = Integer.parseInt(count);
-                System.out.println(counter);
-                System.out.println(sum);
-                value = Double.parseDouble(sum);
+                if(sum == "null" && count == "null"){
+                    continue;
+                }else{
+                    counter = Integer.parseInt(count);
+                    System.out.println(counter);
+                    System.out.println(sum);
+                    value = Double.parseDouble(sum);
+                }
 
             }
             try (PrintWriter out = response.getWriter()) {
