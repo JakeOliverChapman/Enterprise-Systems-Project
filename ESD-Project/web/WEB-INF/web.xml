@@ -18,7 +18,15 @@
 		<servlet-name>RegisterServlet</servlet-name>
 		<url-pattern>/RegisterServlet</url-pattern>
 	</servlet-mapping>        
-
+        <servlet>
+		<description></description>
+		<servlet-name>GoogleMapsServlet</servlet-name>
+		<servlet-class>com.GoogleMapsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GoogleMapsServlet</servlet-name>
+		<url-pattern>/GoogleMapsServlet</url-pattern>
+	</servlet-mapping>
     <session-config>
         <session-timeout>
             30
