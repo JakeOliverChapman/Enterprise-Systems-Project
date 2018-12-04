@@ -15,28 +15,22 @@
         <title> Customer Home Page </title>
     </head>
     <style>
-
-        h1{
-            font-size: 30px;
-            color: #fff;
-            text-transform: uppercase;
-            font-weight: 300;
-            text-align: center;
-            margin-bottom: 15px;
-        }
         table{
             width:100%;
             table-layout: fixed;
         }
+
         table.tbl-header{
             background-color: rgba(255,255,255,0.3);
         }
+
         table.tbl-content{
             height:300px;
             overflow-x:auto;
             margin-top: 0px;
             border: 1px solid rgba(255,255,255,0.3);
         }
+
         th{
             padding: 20px 15px;
             text-align: left;
@@ -45,6 +39,7 @@
             color: #fff;
             text-transform: uppercase;
         }
+
         td{
             padding: 15px;
             text-align: left;
@@ -55,14 +50,7 @@
             border-bottom: solid 1px rgba(255,255,255,0.1);
         }
 
-
-
-        body{
-            background: -webkit-linear-gradient(left, #252228, #252228);
-            background: linear-gradient(to right, #252228, #252228);
-            font-family: 'Roboto', sans-serif;
-        }
-        section{
+        section {
             margin: 50px;
         }
 
@@ -70,25 +58,14 @@
 
         ::-webkit-scrollbar {
             width: 6px;
-        } 
+        }
+
         ::-webkit-scrollbar-track {
             -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-        } 
+        }
+
         ::-webkit-scrollbar-thumb {
             -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-        }
-        a.button:link, a.button:visited {
-            background-color: #f44336;
-            color: white;
-            padding: 14px 25px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-
-        a.button:hover, a.button:active {
-            background-color: red;
         }
 
         ul {
@@ -107,17 +84,20 @@
             display: block;
             color: white;
             text-align: center;
-            padding: 14px 16px;
+            padding: 0.75vw 1vw;
             text-decoration: none;
         }
 
-        li a:hover:not(.active) {
+        li a:hover {
             background-color: #111;
+            color: #ffffff;
         }
 
         .active {
-            background-color: #4CAF50;
+            background-color: #ffda00;
+            color: #000000;
         }
+
         input.ButtonSubmit{
             background-color: #f44336;
             color: white;
@@ -203,10 +183,9 @@
                         <table>
                             <tr>
                                 <td><b> Booking Reference </b></td>
-                                <td><b> Pick-up Date </b></td>
-                                <td><b> Pick-up Time </b></td>
+                                <td><b> Pick-up Date and Time </b></td>
                                 <td><b> Distance (Miles) </b></td>
-                                <td><b> Amount </b></td>
+                                <td><b> Journey Cost </b></td>
                             </tr>
                         </table>
                     </div>
@@ -223,7 +202,6 @@
                         <table>
                             <tr>
                                 <td><%=resultSet.getString("bookingreference")%></td>
-                                <td><%=resultSet.getString("starttime")%></td>
                                 <td><%=resultSet.getString("paymenttime")%></td>
                                 <td><%=resultSet.getString("distanceinmiles")%></td>
                                 <td><%=resultSet.getString("paymentamount")%></td>
