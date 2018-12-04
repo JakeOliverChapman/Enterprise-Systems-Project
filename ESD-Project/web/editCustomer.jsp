@@ -1,9 +1,3 @@
-<%-- 
-    Document   : edit
-    Created on : 30-Nov-2018, 13:53:26
-    Author     : Willi
---%>
-
 <%@ page language="java" 
          contentType="text/html; charset=windows-1256"
          pageEncoding="windows-1256"
@@ -185,11 +179,11 @@
             <li style="float:right" ><a><%=userName%></a></li>
         </ul>
         <div class="subHeader">
-              <form action="LogoutServlet" method="post">
+            <form action="LogoutServlet" method="post">
                 <input style="float:right" class="ButtonSubmit" type="submit" value="Logout" >
-              </form>
+            </form>
         </div><br>
-    <a class="button" href='customers.jsp' role="button">Go back</a><br><br>
+        <a class="button" href='customers.jsp' role="button">Go back</a><br><br>
         <h2 align="center">CUSTOMER INFORMATION</h2><br>
 
 
@@ -238,15 +232,15 @@
             <div id="tbl-content">
                 <table>
                     <tr>
-                            <FORM ACTION="update.jsp?d=<%=resultSet.getString("customerID")%>&j=<%="Customer"%>" METHOD="POST">
-                                <td><%=resultSet.getString("customerID")%></td>
-                                <td><input type="text" class="textField" name="fn" value="<%=resultSet.getString("firstName")%>"</td>
-                                <td><input type="text" class="textField" name="ln" value="<%=resultSet.getString("lastName")%>"</td>
-                                <td><input type="text" class="textField" name="em" value="<%=resultSet.getString("email")%>"</td>
-                                <td><input type="text" class="textField" name="pw" value="<%=resultSet.getString("password")%>"</td>
-                                <td><input type="text" class="textField" name="dob" value="<%=resultSet.getString("dateofbirth")%>"</td>
-                                <td><INPUT TYPE="SUBMIT" value="Submit"></td>
-                            </form>
+                    <FORM ACTION="update.jsp?d=<%=resultSet.getString("customerID")%>&j=<%="Customer"%>" METHOD="POST">
+                        <td><%=resultSet.getString("customerID")%></td>
+                        <td><input type="text" class="textField" name="fn" value="<%=resultSet.getString("firstName")%>"</td>
+                        <td><input type="text" class="textField" name="ln" value="<%=resultSet.getString("lastName")%>"</td>
+                        <td><input type="text" class="textField" name="em" value="<%=resultSet.getString("email")%>"</td>
+                        <td><input type="text" class="textField" name="pw" value="<%=resultSet.getString("password")%>"</td>
+                        <td><input type="text" class="textField" name="dob" value="<%=resultSet.getString("dateofbirth")%>"</td>
+                        <td><INPUT TYPE="SUBMIT" value="Submit"></td>
+                    </form>
                     </tr>
                 </table>
             </div>

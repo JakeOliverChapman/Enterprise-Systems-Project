@@ -1,9 +1,3 @@
-<%-- 
-    Document   : edit
-    Created on : 30-Nov-2018, 13:53:26
-    Author     : Willi
---%>
-
 <%@ page language="java" 
          contentType="text/html; charset=windows-1256"
          pageEncoding="windows-1256"
@@ -232,7 +226,6 @@
                     String sql = "SELECT * FROM PASS.DRIVER_TABLE WHERE DRIVERID=" + id;
                     resultSet = statement.executeQuery(sql);
 
-                    
                     //resultSet.next();
                     System.out.println(id);
                     System.out.println(resultSet);
@@ -255,7 +248,7 @@
                 </table>
             </div>
             <%
-                   }
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                     System.out.println("Driver not found");

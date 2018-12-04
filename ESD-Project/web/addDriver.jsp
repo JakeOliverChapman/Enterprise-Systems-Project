@@ -1,22 +1,14 @@
-<%-- 
-    Document   : addDriver
-    Created on : 11-Nov-2018, 17:58:45
-    Author     : jonasarud
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-            <link rel="stylesheet" href="primaryStyle.css">
-
-        
-             <meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
-            <title>Add Driver Page</title>
+        <link rel="stylesheet" href="primaryStyle.css">
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
+        <title>Add Driver Page</title>
     </head>
 
-<body>
-    <%
+    <body>
+        <%
             //allow access only if session exists
             String user = null;
             if (session.getAttribute("user") == null) {
@@ -47,7 +39,7 @@
             }
         %>
 
-<div class="container">
+        <div class="container">
             <div class="mainHeader" align="center">
                 Register
             </div>

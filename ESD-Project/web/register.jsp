@@ -9,7 +9,7 @@
             <div class="mainHeader" align="center">
                 Register
             </div>
-            <form class="formCenter" role="form" action="LoginServlet" method="post">
+            <form class="formCenter" role="form" action="RegisterServlet" method="post">
                 <input type="text" class="textField" name="fn" placeholder="First name">
                 <br>
                 <input type="text" class="textField" name="ln" placeholder="Last name">

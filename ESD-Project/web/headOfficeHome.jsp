@@ -1,9 +1,3 @@
-<%-- 
-    Document   : headOfficeHome
-    Created on : 15-Nov-2018, 20:52:28
-    Author     : Will
---%>
-
 <%@ page language="java" 
          contentType="text/html; charset=windows-1256"
          pageEncoding="windows-1256"
@@ -17,55 +11,55 @@
         <title> Head Office Home Page </title>
         <style>
             a.button:link, a.button:visited {
-    background-color: #f44336;
-    color: white;
-    padding: 14px 25px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-}
+                background-color: #f44336;
+                color: white;
+                padding: 14px 25px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+            }
 
 
-a.button:hover, a.button:active {
-    background-color: red;
-}
+            a.button:hover, a.button:active {
+                background-color: red;
+            }
 
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-}
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background-color: #333;
+            }
 
-li {
-    float: left;
-}
+            li {
+                float: left;
+            }
 
-li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
+            li a {
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
 
-li a:hover:not(.active) {
-    background-color: #111;
-}
+            li a:hover:not(.active) {
+                background-color: #111;
+            }
 
-.active {
-    background-color: #4CAF50;
-}
-input.ButtonSubmit{
-    background-color: #f44336;
-    color: white;
-    padding: 14px 25px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    border:0px;
-}
+            .active {
+                background-color: #4CAF50;
+            }
+            input.ButtonSubmit{
+                background-color: #f44336;
+                color: white;
+                padding: 14px 25px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                border:0px;
+            }
         </style>
     </head>
 
@@ -96,30 +90,30 @@ input.ButtonSubmit{
                         userType = cookie.getValue();
 
                     }
-                    
+
                 }
             } else {
                 sessionID = session.getId();
             }
-            if(userType.equals("HeadOffice")){
+            if (userType.equals("HeadOffice")) {
                 System.out.println("Welcome admin");
 
-            }else{
+            } else {
                 System.out.println("You are not an admin.. GET OUT!");
-                response.sendRedirect("index.html");    
+                response.sendRedirect("index.html");
             }
-  
+
         %>
 
         <ul>
-        <li><a class="active" href="headOfficeHome.jsp">Home</a></li>
-        <li><a href="customers.jsp">View Customers</a></li>
-        <li><a href="drivers.jsp">View Drivers</a></li>
-        <li style="float:right" ><a><%=userName%></a></li>
+            <li><a class="active" href="headOfficeHome.jsp">Home</a></li>
+            <li><a href="customers.jsp">View Customers</a></li>
+            <li><a href="drivers.jsp">View Drivers</a></li>
+            <li style="float:right" ><a><%=userName%></a></li>
         </ul>
-              <form action="LogoutServlet" method="post">
-                <input style="float:right" class="ButtonSubmit" type="submit" value="Logout" >
-              </form>
+        <form action="LogoutServlet" method="post">
+            <input style="float:right" class="ButtonSubmit" type="submit" value="Logout" >
+        </form>
     </body>
 </html>
 
