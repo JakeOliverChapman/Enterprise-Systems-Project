@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import model.ConnectionManager;
 
@@ -80,16 +81,29 @@ public class GoogleMapsServlet extends HttpServlet {
 //                    System.out.println("USER ID: " + userID);
 //                }
 //            }
-//        }
+//        }CUSTOMER_INVOICE
+        
+        ServletContext application = getServletConfig().getServletContext();  
+            
         int userID = -1;
         HttpSession session = request.getSession(false);
         String userIDtemp = (String) session.getAttribute("userid");
         userID = Integer.parseInt(userIDtemp);
         System.out.println(userID);
-
+        
+        int rateIncrement = 0;
+        
         try {
             String query = "insert into PASS.BOOKING_TABLE (DRIVERID,STARTTIME,ENDTIME,CUSTOMERID,BOOKINGREFERENCE,DISTANCEINMILES,PAYMENTAMOUNT,PAYMENTTIME,JOBCOMPLETED) values (?,?,?,?,?,?,?,?,?)";
+            try {
+                String data = (String) application.getAttribute("increment");
+                System.out.println(data);
+                rateIncrement = parseInt(data);
+            } catch (Exception e) {
+                System.out.println("rateIncrement not set");
+            }
 
+            System.out.println(rateIncrement);
             currentCon = ConnectionManager.getConnection();
             stmt = currentCon.createStatement();
             double totalCost = 0;
@@ -106,7 +120,7 @@ public class GoogleMapsServlet extends HttpServlet {
 
             // Calculate total journey cost
             if (miles < 5) {
-                totalCost = flatRate;
+                totalCost = flatRate + rateIncrement;
             } else {
                 totalCost = flatRate + (miles * mileageRate);
             }

@@ -111,9 +111,16 @@
             <li><a href="drivers.jsp">View Drivers</a></li>
             <li style="float:right" ><a><%=userName%></a></li>
         </ul>
-        <form action="LogoutServlet" method="post">
+    <tr>
+        <td> <form action="LogoutServlet" method="post">
             <input style="float:right" class="ButtonSubmit" type="submit" value="Logout" >
-        </form>
+            </form></td>
+        
+    <td><form action="updateRateIncrement" METHOD="post">
+            <td><input type="text" style="float:left" class="textField" name="inc"  placeholder="Increment Value">
+                <input style="float:left" class="ButtonSubmit" type="submit" value="Less than 5 mile increment"></td>
+        </form></td>
+    </tr>
     </body>
 </html>
 
