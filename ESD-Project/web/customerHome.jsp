@@ -1,9 +1,3 @@
-<%-- 
-    Document   : taxiBooked
-    Created on : 25-Nov-2018, 19:59:16
-    Author     : Oos
---%>
-
 <%@page import="java.sql.DriverManager"%>
 <%@ page language="java" 
          contentType="text/html; charset=windows-1256"
@@ -175,16 +169,17 @@
             }
         %>
         <ul>
-            <li><a class="active" href="customerHome.jsp">View bookings</a></li>
-            <li><a href="bookACab.jsp">Book</a></li>
-            <li style="float:right" ><a><%=userName%></a></li>
+            <li><a class="active" href="customerHome.jsp"> View bookings </a></li>
+            <li><a href="bookACab.jsp"> New Booking </a></li>
+            <li style="float:right" ><a> <%=userName%> </a></li>
         </ul>
 
-        <div class="subHeader">
+        <div>
             <form action="LogoutServlet" method="post">
                 <input style="float:right" class="ButtonSubmit" type="submit" value="Logout" >
             </form>
-        </div><br>
+        </div>
+
         <div class="container">
             <div class="subHeader">
                 <%
@@ -207,10 +202,11 @@
                     <div id="tbl-header">
                         <table>
                             <tr>
-                                <td><b>Booking Reference</b></td>
-                                <td><b>Start</b></td>
-                                <td><b>Distance (Miles)</b></td>
-                                <td><b>Amount</b></td>
+                                <td><b> Booking Reference </b></td>
+                                <td><b> Pick-up Date </b></td>
+                                <td><b> Pick-up Time </b></td>
+                                <td><b> Distance (Miles) </b></td>
+                                <td><b> Amount </b></td>
                             </tr>
                         </table>
                     </div>
@@ -220,7 +216,6 @@
                             statement = connection.createStatement();
                             String sql = "SELECT * FROM PASS.BOOKING_TABLE WHERE CUSTOMERID=" + Id;
                             System.out.println(Id);
-
                             resultSet = statement.executeQuery(sql);
                             while (resultSet.next()) {
                     %>
@@ -229,6 +224,7 @@
                             <tr>
                                 <td><%=resultSet.getString("bookingreference")%></td>
                                 <td><%=resultSet.getString("starttime")%></td>
+                                <td><%=resultSet.getString("paymenttime")%></td>
                                 <td><%=resultSet.getString("distanceinmiles")%></td>
                                 <td><%=resultSet.getString("paymentamount")%></td>
                             </tr>
@@ -237,7 +233,6 @@
 
                     <%
                             }
-
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com;
 
 import java.io.BufferedReader;
@@ -27,12 +22,6 @@ import java.text.SimpleDateFormat;
 import javax.servlet.http.HttpSession;
 import model.ConnectionManager;
 
-/**
- *
- * @author TomVM & jonasarud & CJ
- * https://developers.google.com/maps/documentation/distance-matrix/intro#DistanceMatrixRequests
- *
- */
 public class GoogleMapsServlet extends HttpServlet {
 
     private static String api = "AIzaSyC30fCnCqt0kI4tdOqRMm4mg0kW5oe1tGo";
@@ -114,12 +103,14 @@ public class GoogleMapsServlet extends HttpServlet {
             ps.setInt(4, userID);
             ps.setString(5, ref);
             ps.setDouble(6, miles);
+
             // Calculate total journey cost
             if (miles < 5) {
                 totalCost = flatRate;
             } else {
                 totalCost = flatRate + (miles * mileageRate);
             }
+
             ps.setDouble(7, totalCost);
             ps.setTimestamp(8, timestamp);
             ps.setBoolean(9, false);
@@ -130,8 +121,6 @@ public class GoogleMapsServlet extends HttpServlet {
             currentCon.close();
             response.sendRedirect("customerHome.jsp");
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         }
 
     }

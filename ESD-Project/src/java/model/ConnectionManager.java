@@ -1,9 +1,5 @@
 package model;
 
-/**
- *
- * @author jonasarud
- */
 import java.sql.*;
 
 public class ConnectionManager {

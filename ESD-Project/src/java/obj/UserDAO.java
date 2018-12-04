@@ -1,9 +1,5 @@
 package obj;
 
-/**
- *
- * @author jonasarud
- */
 import model.ConnectionManager;
 import java.sql.*;
 
@@ -14,12 +10,12 @@ public class UserDAO {
 
     public static UserBean login(UserBean bean) {
 
-        //preparing some objects for connection 
+        // preparing some objects for connection 
         Statement stmt = null;
         String email = bean.getEmail();
         String password = bean.getPassword();
 
-        //Create query by user type
+        // Create query by user type
         String customerQuery
                 = "SELECT CUSTOMERID, FIRSTNAME, LASTNAME, EMAIL,PASSWORD FROM PASS.CUSTOMER_TABLE WHERE EMAIL='"
                 + email + "' AND PASSWORD='"
@@ -39,11 +35,11 @@ public class UserDAO {
             String type = null;
             String ID = null;
 
-            //connect to DB
+            // Connect to DB
             currentCon = ConnectionManager.getConnection();
             stmt = currentCon.createStatement();
 
-            //  Find user/type
+            // Find user / type
             if (!more) {
                 rs = stmt.executeQuery(customerQuery);
                 more = rs.next();
@@ -52,6 +48,7 @@ public class UserDAO {
                     ID = rs.getString("CUSTOMERID");
                 }
             }
+
             if (!more) {
                 rs = stmt.executeQuery(headOfficeQuery);
                 more = rs.next();
@@ -60,6 +57,7 @@ public class UserDAO {
                     ID = rs.getString("ADMINID");
                 }
             }
+
             if (!more) {
                 rs = stmt.executeQuery(driverQuery);
                 more = rs.next();
@@ -68,13 +66,14 @@ public class UserDAO {
                     ID = rs.getString("DRIVERID");
                 }
             }
+
             if (!more) {
-                //  User does not exist
+                // User does not exist
                 System.out.println("Sorry, you are not a registered user! Please sign up first");
                 bean.setValid(false);
             }
 
-            //if user exists set the isValid variable to true
+            // If user exists set the isValid variable to true
             if (more) {
                 String firstName = rs.getString("FirstName");
                 String lastName = rs.getString("LastName");
@@ -88,7 +87,7 @@ public class UserDAO {
             }
         } catch (SQLException ex) {
             System.out.println("Log In failed: An Exception has occurred! " + ex);
-        } //some exception handling
+        } // Some exception handling
         finally {
             if (rs != null) {
                 try {
@@ -116,11 +115,9 @@ public class UserDAO {
         }
 
         return bean;
-
     }
 
     public static UserBean register(UserBean bean) {
-
         return bean;
     }
 }
