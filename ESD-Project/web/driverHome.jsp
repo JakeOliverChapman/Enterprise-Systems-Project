@@ -16,15 +16,6 @@
         <link rel="stylesheet" href="primaryStyle.css">
         <title> Driver Home Page </title>
         <style>
-            h1{
-                font-size: 30px;
-                color: #fff;
-                text-transform: uppercase;
-                font-weight: 300;
-                text-align: center;
-                margin-bottom: 15px;
-            }
-
             table{
                 width:100%;
                 table-layout: fixed;
@@ -60,40 +51,22 @@
                 border-bottom: solid 1px rgba(255,255,255,0.1);
             }
 
-            body{
-                background: -webkit-linear-gradient(left, #252228, #252228);
-                background: linear-gradient(to right, #252228, #252228);
-                font-family: 'Roboto', sans-serif;
-            }
-
-            section{
+            section {
                 margin: 50px;
             }
 
             /* for custom scrollbar for webkit browser*/
+
             ::-webkit-scrollbar {
                 width: 6px;
-            } 
+            }
 
             ::-webkit-scrollbar-track {
                 -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-            } 
+            }
 
             ::-webkit-scrollbar-thumb {
                 -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-            }
-
-            a.button:link, a.button:visited {
-                background-color: #f44336;
-                color: white;
-                padding: 10px 15px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-            }
-
-            a.button:hover, a.button:active {
-                background-color: red;
             }
 
             ul {
@@ -112,16 +85,18 @@
                 display: block;
                 color: white;
                 text-align: center;
-                padding: 14px 16px;
+                padding: 0.75vw 1vw;
                 text-decoration: none;
             }
 
-            li a:hover:not(.active) {
+            li a:hover {
                 background-color: #111;
+                color: #ffffff;
             }
 
             .active {
-                background-color: #4CAF50;
+                background-color: #ffda00;
+                color: #000000;
             }
 
             input.ButtonSubmit{
@@ -132,19 +107,6 @@
                 text-decoration: none;
                 display: inline-block;
                 border:0px;
-            }
-
-            a.button:link, a.button:visited {
-                background-color: #f44336;
-                color: white;
-                padding: 14px 25px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-            }
-
-            a.button:hover, a.button:active {
-                background-color: red;
             }
         </style>
     </head>
@@ -179,10 +141,11 @@
             } else {
                 sessionID = session.getId();
             }
-            if (userType.equals("Driver")) { // Check that the user has correct privelege
-                System.out.println("Welcome Driver");
+
+            if (userType.equals("Driver")) { // Check that the user has correct access rights
+                System.out.println("Driver succsessfully logged onto system.");
             } else {
-                System.out.println("Records show you are not a driver");
+                System.out.println("Login unsuccsessfull, user is not a driver.");
                 response.sendRedirect("index.html");
             }
         %>
@@ -191,15 +154,15 @@
             <li> <a class="active" href="drivers.jsp"> Job List </a> </li>
             <li style="float:right" > <a> <%=userName%> </a> </li>
         </ul>
+        <br>
         <div>
             <form action="LogoutServlet" method="post">
-                <input style="float:right" class="ButtonSubmit" type="submit" value="Logout" >
+                <input style="float:right" class="submitButton" type="submit" value="Logout">
             </form>
+            <a style="float:right" class="submitButton" href='drivers.jsp' role="button"> Go back </a>
         </div>
-        <br>
-        <a style="float:right" class="button" href='drivers.jsp' role="button"> Go back </a><br><br>
-        <h2 align="center"> Booked Journeys </h2><br>
-
+        <br><br><br>
+        <div align="center" class="mainHeader"> Job List </div>
         <%
             String driverName = "org.apache.derby.jdbc.ClientDriver";
             String connectionUrl = "jdbc:derby://localhost:1527/userlogin";
@@ -209,15 +172,13 @@
             String id = request.getParameter("d");
             String isD = request.getParameter("j");
             boolean isDriving = Boolean.getBoolean(isD);
-            //int number = Integer.parseInt(id);
+            // int number = Integer.parseInt(id);
 
             try {
                 int number = Integer.parseInt(id);
             } catch (NumberFormatException e) {
                 // log the error or ignore it
             }
-
-            System.out.println(id + " " + isDriving);
 
             try {
                 Class.forName(driverName);
@@ -244,53 +205,51 @@
                         <td><b>Complete?</b></td>
                     </tr>
                 </table>
-                </<div>
-                    <%
-                        try {
-                            connection = DriverManager.getConnection(connectionUrl, userId, password);
-                            PreparedStatement statement1 = connection.prepareStatement("SELECT * FROM DRIVER_TABLE WHERE EMAIL=?");
-                            statement1.setString(1, userName);
+            </div>
+            <%
+                try {
+                    connection = DriverManager.getConnection(connectionUrl, userId, password);
+                    PreparedStatement statement1 = connection.prepareStatement("SELECT * FROM DRIVER_TABLE WHERE EMAIL = ?");
+                    statement1.setString(1, userName);
+                    ResultSet result = statement1.executeQuery();
+                    System.out.println("Driver email: " + userName);
 
-                            ResultSet result = statement1.executeQuery();
+                    while (result.next()) {
+                        String driverUID = result.getString("DRIVERID");
+                        System.out.println("Driver ID: " + driverUID);
 
-                            System.out.println(userName);
+                        PreparedStatement statement2 = connection.prepareStatement("SELECT * FROM BOOKING_TABLE WHERE JOBCOMPLETED = " + false + " AND DRIVERID = ?");
+                        statement2.setString(1, driverUID);
 
-                            while (result.next()) {
-                                String driverUID = result.getString("DRIVERID");
-                                System.out.println(driverUID);
-
-                                PreparedStatement statement2 = connection.prepareStatement("SELECT * FROM BOOKING_TABLE WHERE JOBCOMPLETED =" + false + " AND DRIVERID=?");
-                                statement2.setString(1, driverUID);
-
-                                ResultSet result2 = statement2.executeQuery();
-                                while (result2.next()) {
-                    %>
-                    <div id="tbl-content">
-                        <table>
-                            <tr>
-                                <td> <%=result2.getString("DriverID")%> </td>
-                                <td> <%=result2.getString("StartTime")%> </td>
-                                <td> <%=result2.getString("endTime")%> </td>
-                                <td> <%=result2.getString("CustomerId")%> </td>
-                                <td> <%=result2.getString("Bookingreference")%> </td>
-                                <td> <%=result2.getString("Distanceinmiles")%> </td>
-                                <td> <%=result2.getString("Paymentamount")%> </td>
-                                <td> <%=result2.getString("PaymentTime")%> </td>
-                                <td> <input type="checkbox" name="jobComplete" action="jobCompleted.jsp" value="false"> </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <%
-                                }
-                            }
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        ResultSet result2 = statement2.executeQuery();
+                        while (result2.next()) {
+            %>
+            <div id="tbl-content">
+                <table>
+                    <tr>
+                        <td> <%=result2.getString("DriverID")%> </td>
+                        <td> <%=result2.getString("StartTime")%> </td>
+                        <td> <%=result2.getString("endTime")%> </td>
+                        <td> <%=result2.getString("CustomerId")%> </td>
+                        <td> <%=result2.getString("Bookingreference")%> </td>
+                        <td> <%=result2.getString("Distanceinmiles")%> </td>
+                        <td> <%=result2.getString("Paymentamount")%> </td>
+                        <td> <%=result2.getString("PaymentTime")%> </td>
+                        <td> <input type="checkbox" class="customCheckBox" name="jobComplete" action="jobCompleted.jsp"> </td>
+                    </tr>
+                </table>
+            </div>
+            <%
                         }
-                    %>
-                    </section>
-                    </body>
-                    </html>
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            %>
+        </section>
+    </body>
+</html>
 
 
 

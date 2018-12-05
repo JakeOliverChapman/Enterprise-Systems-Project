@@ -3,7 +3,7 @@
 <%@ page import="java.sql.Connection"%>
 <%@ page import="java.sql.Statement"%>
 <%
-    System.out.println("Works");
+    System.out.println("Job completion box ticked.");
     String id = request.getParameter("d");
     String jobComplete = request.getParameter("jobCompleted");
     String driverName = "org.apache.derby.jdbc.ClientDriver";
@@ -17,19 +17,15 @@
         e.printStackTrace();
     }
 
-    Connection connection = null;
-    Statement statement = null;
-    connection = DriverManager.getConnection(connectionUrl, userId, password);
-
+    // Connect to database and change job completion status
+    Connection connection = DriverManager.getConnection(connectionUrl, userId, password);
     try {
         PreparedStatement ps = connection.prepareStatement("UPDATE PASS.DRIVER_TABLE SET JOBCOMPLETED = ? WHERE DRIVERID = " + id);
         ps.setObject(1, jobComplete);
         ps.executeUpdate();
         response.sendRedirect("driverHome.jsp");
-
     } catch (Exception e) {
         e.printStackTrace();
-        System.out.println("Yeet");
     }
 
 %>
