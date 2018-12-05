@@ -157,11 +157,10 @@
         <br>
         <div>
             <form action="LogoutServlet" method="post">
-                <input style="float:right" class="submitButton" type="submit" value="Logout">
+                <input style="float:right" class="ButtonSubmit" type="submit" value="Logout">
             </form>
-            <a style="float:right" class="submitButton" href='drivers.jsp' role="button"> Go back </a>
         </div>
-        <br><br><br>
+        <br><br><br><br>
         <div align="center" class="mainHeader"> Job List </div>
         <%
             String driverName = "org.apache.derby.jdbc.ClientDriver";
@@ -227,15 +226,26 @@
             <div id="tbl-content">
                 <table>
                     <tr>
-                        <td> <%=result2.getString("DriverID")%> </td>
-                        <td> <%=result2.getString("StartTime")%> </td>
-                        <td> <%=result2.getString("endTime")%> </td>
-                        <td> <%=result2.getString("CustomerId")%> </td>
-                        <td> <%=result2.getString("Bookingreference")%> </td>
-                        <td> <%=result2.getString("Distanceinmiles")%> </td>
-                        <td> <%=result2.getString("Paymentamount")%> </td>
-                        <td> <%=result2.getString("PaymentTime")%> </td>
-                        <td> <input type="checkbox" class="customCheckBox" name="jobComplete" action="jobCompleted.jsp"> </td>
+                    <form class="formCenter" role="form" action="CompleteJobsServlet" method="post">
+                        <td> <input type="text" class="textField" name="id" placeholder="Driver ID" value="<%=result2.getString("DriverID")%>"></td>
+                        
+                        <td><input type="text" class="textField" name="st" placeholder="Start Time" value="<%=result2.getString("StartTime")%>" readonly="readonly"></td>
+                        
+                        <td><input type="text" class="textField" name="et" placeholder="End Time" value="<%=result2.getString("endTime")%>" readonly="readonly"></td>
+                        
+                        <td><input type="text" class="textField" name="cid" placeholder="Customer Id" value="<%=result2.getString("CustomerID")%>" readonly="readonly"></td>
+                     
+                        <td><input type="text" class="textField" name="br" placeholder="Booking Reference" value="<%=result2.getString("Bookingreference")%>" readonly="readonly"></td>
+                   
+                        <td><input type="text" class="textField" name="dim" placeholder="Distance In Miles" value="<%=result2.getString("Distanceinmiles")%>" readonly="readonly"></td>
+                     
+                        <td><input type="text" class="textField" name="pa" placeholder="Payment Amount" value="<%=result2.getString("Paymentamount")%>" readonly="readonly"></td>
+                     
+                        <td><input  type="text" class="textField dateField" name="date" placeholder="Date of birth" onfocusin="(this.type='date')" onfocusout="(this.type='text')"></td>
+                      
+                        <td><button type="submit" class="submitButton">Complete Job</button></td>
+                    </form>
+                    
                     </tr>
                 </table>
             </div>

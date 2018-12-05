@@ -71,16 +71,6 @@ public class GoogleMapsServlet extends HttpServlet {
         pickupTime = pickupTime + ":00";
         System.out.println(pickupTime);
 
-//        Cookie[] cookies = request.getCookies();
-//        if (cookies != null) {
-//            for (Cookie cookie : cookies) {
-//                if (cookie.getName().equals("userId")) {
-//                    System.out.println(cookie.getValue());
-//                    userID = Integer.parseInt(cookie.getValue());
-//                    System.out.println("USER ID: " + userID);
-//                }
-//            }
-//        }
         int userID = -1;
         HttpSession session = request.getSession(false);
         String userIDtemp = (String) session.getAttribute("userid");

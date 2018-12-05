@@ -1,3 +1,5 @@
+<%@page import="model.ConnectionManager"%>
+<%@page import="model.ConnectionManager"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@ page import="java.sql.DriverManager"%>
 <%@ page import="java.sql.Connection"%>
@@ -12,27 +14,11 @@
     String userPassword = request.getParameter("pw");
     String dateOfBirth = request.getParameter("dob");
 
-    //  int number = Integer.parseInt(id);
     System.out.println(id);
-//  System.out.println(number);
-    String driverName = "org.apache.derby.jdbc.ClientDriver";
-    String connectionUrl = "jdbc:derby://localhost:1527/userlogin";
-    String userId = "pass";
-    String password = "pass";
-    try {
-        Class.forName(driverName).newInstance();
-    } catch (ClassNotFoundException e) {
-        e.printStackTrace();
-    }
 
-    Connection connection = null;
-    Statement statement = null;
+    currentCon = ConnectionManager.getConnection();
+    stmt = currentCon.createStatement();
 
-    String test = "Yeet";
-    String date = "1982-10-10";
-
-    //id = "2";
-    connection = DriverManager.getConnection(connectionUrl, userId, password);
     System.out.println(userType);
     try {
         if (userType == "Customer") {
