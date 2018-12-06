@@ -26,9 +26,9 @@ CREATE TABLE driver_table (
 
 	PRIMARY KEY (driverID)
 ) ;
-INSERT INTO driver_table (firstName, lastName, email, password, dateOfBirth, isDriving) VALUES('Roger', 'Thomas', 'stacey1989@gmail.com', '123', '1976-04-09', 'false');
+INSERT INTO driver_table (firstName, lastName, email, password, dateOfBirth, isDriving) VALUES('Roger', 'Thomas', 'stacey1989@gmail.com', '123', '1976-04-09', 'true');
 INSERT INTO driver_table (firstName, lastName, email, password, dateOfBirth, isDriving) VALUES('April', 'Garcia', 'brett19802015@gmail.com', '1234', '1993-03-21', 'false');
-INSERT INTO driver_table (firstName, lastName, email, password, dateOfBirth, isDriving) VALUES('Kimberly', 'Zepeda', 'aliya.hirth1@hotmail.com', '12345', '1966-06-23', 'false');
+INSERT INTO driver_table (firstName, lastName, email, password, dateOfBirth, isDriving) VALUES('Kimberly', 'Zepeda', 'aliya.hirth1@hotmail.com', '12345', '1966-06-23', 'true');
 
 
 CREATE TABLE booking_table (
